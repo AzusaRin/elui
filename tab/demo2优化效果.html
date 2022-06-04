@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab选项卡</title>
+  <style>
+    .container{
+      max-width: 800px;
+      margin:30px auto;
+      border-radius: 5px;
+      box-shadow: 0 0 4px 0px rgba(0,0,0,0.3);
+      padding: 16px;
+    }
+  .tabs .tab-header{
+    position:relative;
+    display: flex;
+    font-size: 13px;
+    color: #303030;
+    font-weight: 600;
+    line-height: 30px;
+    border-bottom: solid 1.5px #ddd; 
+  }
+
+  .tabs .line{
+    position: absolute;
+    transform: translateX(0);
+    height:2px;
+    background-color: #409eff;
+    top:100%;
+    transition: all 0.5s;
+  }  
+
+  .tabs .tab-item{
+   margin-right: 30px;
+   cursor: pointer;
+  }
+
+ 
+
+
+  .tabs .tab-item.active{
+    color:#409eff;
+    
+  }
+
+  .tabs .tab-panel{
+    padding: 16px;
+    font-size: 14px;
+    display: none;
+  }
+
+  .tabs .tab-panel.active{
+    display: block;
+  }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Tab选项卡</h2>
+    <div class="tabs">
+      <div class="tab-header">
+        <span class="tab-item active">用户管理</span>
+        <span class="tab-item">配置管理</span>
+        <span class="tab-item">角色管理</span>
+        <span class="tab-item">定时任务补偿</span>
+        <span class="line"></span>
+      </div>
+      <div class="tab-content">
+        <div class="tab-panel active">用户管理1</div>
+        <div class="tab-panel">配置管理1</div>
+        <div class="tab-panel">角色管理1</div>
+        <div class="tab-panel">定时任务补偿1</div>
+      </div>
+    </div>
+  </div>
+  <script> 
+  const $ = str =>document.querySelector(str)
+  const $$ = str =>document.querySelectorAll(str)
+  
+  const $$tabItems =  $$('.tabs .tab-item')
+  const $$tabPanels = $$('.tabs .tab-panel')
+  const $line = $('.tabs .line')
+
+  $line.style.width = $$tabItems[0].offsetWidth + 'px'
+
+  $$tabItems.forEach(tabNode =>{
+    tabNode.onclick = function(){
+      $$tabItems.forEach(tabNode => tabNode.classList.remove('active'))
+    this.classList.add('active')
+
+    $line.style.width = this.offsetWidth + 'px'
+    $line.style.transform = `translateX(${this.offsetLeft}px)`
+
+
+    
+    
+    let index = Array.from($$tabItems).indexOf(this)
+      $$tabPanels.forEach(panelNode => panelNode.classList.remove('active'))
+      $$tabPanels[index].classList.add('active')
+   
+  
+  }
+ })
+ 
+  </script>
+</body>
+</html>
